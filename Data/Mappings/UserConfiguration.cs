@@ -7,6 +7,7 @@ namespace Data.Mappings
     {
         public UserConfiguration()
         {
+            HasKey(k => k.UserId);
             Property(r => r.FirstName).IsRequired();
             Property(r => r.LastName).IsRequired();
         }

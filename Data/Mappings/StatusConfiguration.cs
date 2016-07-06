@@ -7,7 +7,7 @@ namespace Data.Mappings
     {
         public StatusConfiguration()
         {
-            Property(r => r.StatusId).IsRequired();
+            HasKey(k => k.StatusId);
             Property(r => r.Status).IsRequired();
         }
     }
