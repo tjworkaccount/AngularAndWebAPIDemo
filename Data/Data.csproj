@@ -30,8 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.6.0\lib\net40-client\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Seeder.EF6, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Seeder.EF6.0.4.0\lib\EntityFramework.Seeder.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -41,25 +49,19 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BaseClass.cs" />
-    <Compile Include="Classes\Sample.cs" />
-    <Compile Include="Classes\Status.cs" />
-    <Compile Include="Classes\User.cs" />
+    <Compile Include="Classes\Samples.cs" />
+    <Compile Include="Classes\Statuses.cs" />
+    <Compile Include="Classes\Users.cs" />
     <Compile Include="Context\DataContext.cs" />
     <Compile Include="Mappings\SampleConfiguration.cs" />
     <Compile Include="Mappings\StatusConfiguration.cs" />
     <Compile Include="Mappings\UserConfiguration.cs" />
-    <Compile Include="Migrations\201607010126052_InitialCreate.cs" />
-    <Compile Include="Migrations\201607010126052_InitialCreate.Designer.cs">
-      <DependentUpon>201607010126052_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201607060712412_Initial Create.cs" />
+    <Compile Include="Migrations\201607060712412_Initial Create.Designer.cs">
+      <DependentUpon>201607060712412_Initial Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,12 +69,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607010126052_InitialCreate.resx">
-      <DependentUpon>201607010126052_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607060712412_Initial Create.resx">
+      <DependentUpon>201607060712412_Initial Create.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Samples.csv" />
+    <EmbeddedResource Include="Resources\Statuses.csv" />
+    <EmbeddedResource Include="Resources\Users.csv" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

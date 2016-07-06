@@ -3,13 +3,12 @@ using Data.Classes;
 
 namespace Data.Mappings
 {
-    class StatusConfiguration: EntityTypeConfiguration<Status>
+    class StatusConfiguration: EntityTypeConfiguration<Statuses>
     {
         public StatusConfiguration()
         {
-            this.ToTable("Statuses");
-            this.Property(r => r.Id).HasColumnName("StatusId").IsRequired();
-            this.Property(r => r.Value).HasColumnName("Status").IsRequired();
+            Property(r => r.StatusId).IsRequired();
+            Property(r => r.Status).IsRequired();
         }
     }
 }

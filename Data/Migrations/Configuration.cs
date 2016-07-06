@@ -1,31 +1,57 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Data.Classes;
+using Data.Context;
+using EntityFramework.Seeder;
+
 namespace Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Data.Context.DataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Data.Context.DataContext context)
+        protected override void Seed(DataContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            CheckIndentCommand<Statuses>(ref context);
+            context.Statuses.SeedFromStream(GetSeedStream<Statuses>(), c => c.StatusId);
+            CheckIndentCommand<Users>(ref context);
+            context.Users.SeedFromStream(GetSeedStream<Users>(), c => c.UserId);
+            context.SaveChanges();
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var createdByMapping = new CsvColumnMapping<Samples>("CreatedBy",
+                (sample, user) =>
+                {
+                    int id;
+                    if (int.TryParse(user.ToString(), out id))
+                    {
+                        sample.CreatedByUser = context.Users.Single(u => u.UserId == id);
+                    }
+                });
+
+            var statusIdMapping = new CsvColumnMapping<Samples>("StatusId",
+                (sample, status) =>
+                {
+                    int id;
+                    if (int.TryParse(status.ToString(), out id))
+                    {
+                        sample.Status = context.Statuses.Single(u => u.StatusId == id);
+                    }
+                });
+
+            context.Samples.SeedFromStream(GetSeedStream<Samples>(), c => c.SampleId, new []{createdByMapping, statusIdMapping});
         }
+
+        private static void CheckIndentCommand<T>(ref DataContext context, int reseedValue = 0) => 
+            context.Database.ExecuteSqlCommand($"DBCC CHECKIDENT ('{typeof(T).Name}', RESEED, {reseedValue})");
+
+        private static Stream GetSeedStream<T>() =>
+            Assembly.GetExecutingAssembly().GetManifestResourceStream("Data.Resources." + typeof(T).Name + ".csv");
     }
 }

@@ -1,6 +1,5 @@
 namespace Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class InitialCreate : DbMigration
@@ -18,8 +17,8 @@ namespace Data.Migrations
                         StatusId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.SampleId)
-                .ForeignKey("dbo.Users", t => t.CreatedBy, cascadeDelete: true)
-                .ForeignKey("dbo.Statuses", t => t.StatusId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.CreatedBy)
+                .ForeignKey("dbo.Statuses", t => t.StatusId)
                 .Index(t => t.CreatedBy)
                 .Index(t => t.StatusId);
             
@@ -27,11 +26,11 @@ namespace Data.Migrations
                 "dbo.Users",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false, identity: true),
                         FirstName = c.String(nullable: false),
                         LastName = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.UserId);
             
             CreateTable(
                 "dbo.Statuses",
