@@ -2,7 +2,7 @@
 
 namespace Context
 {
-    public class BaseContext<TContext>: DbContext where TContext:DbContext
+    public abstract class BaseContext<TContext>: DbContext where TContext:DbContext
     {
         static BaseContext()
         {
