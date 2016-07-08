@@ -11,7 +11,6 @@ namespace Context
 
         protected BaseContext() : base("name=DbConnectionString")
         {
-
         }
     }
 }

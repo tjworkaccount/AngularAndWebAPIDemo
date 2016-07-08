@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using Data.Classes.Reference;
-using Context;
 
 namespace Context.Reference
 {
