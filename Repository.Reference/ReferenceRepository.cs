@@ -5,22 +5,42 @@ using Context.Reference;
 
 namespace Repository.Reference
 {
-    public class ReferenceRepository:IDisposable
+    public class ReferenceRepository:IReferenceRepository, IDisposable
     {
         private readonly ReferenceContext _context;
+        private bool isDisposed = false;
 
         public ReferenceRepository()
         {
             _context = new ReferenceContext();
         }
 
-        public IQueryable<UserReference> Users => _context.Users.AsNoTracking();
-        public IQueryable<StatusReference> Statuses => _context.Statuses.AsNoTracking();
-        public IQueryable<SampleReference> Samples => _context.Samples.AsNoTracking();
+        ~ReferenceRepository()
+        {
+            Dispose(false);
+        }
+
+        public IQueryable<UserReference> GetUsers() => _context.Users;
+
+        public IQueryable<StatusReference> GetStatuses() => _context.Statuses;
 
         public void Dispose()
         {
-          _context.Dispose();
-        } 
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!isDisposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+
+                isDisposed = true;
+            }
+        }
     }
 }

@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reference\SampleReference.cs" />
     <Compile Include="Reference\StatusReference.cs" />
     <Compile Include="Reference\UserReference.cs" />
     <Compile Include="Samples.cs" />

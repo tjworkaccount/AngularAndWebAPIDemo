@@ -11,6 +11,7 @@ namespace Context
 
         protected BaseContext() : base("name=DbConnectionString")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     }
 }
