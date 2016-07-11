@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Context.Sample;
 using Data.Classes;
+using LinqKit;
 
 namespace Repository.Sample
 {
     public class SampleRepository: ISampleRepository, IDisposable
     {
         private readonly SampleContext _sampleContext;
-        private bool isDisposed = false;
+        private bool _isDisposed = false;
 
         public SampleRepository()
         {
@@ -25,15 +22,24 @@ namespace Repository.Sample
             Dispose(false);
         }
 
-        public IQueryable<Samples> GetSamples(params Expression<Func<Samples, object>>[] includeProperties)
+        public IQueryable<Samples> GetSamples(string userCreated = null, int? statusId = null)
         {
-            IQueryable<Samples> queryable = _sampleContext.Samples;
-            foreach (var includes in includeProperties)
+            var predicate = PredicateBuilder.True<Samples>();
+
+            if (statusId != null)
             {
-                queryable = queryable.Include(includes);
+                predicate = predicate.And(r => r.Status.StatusId == (int) statusId);
             }
 
-            return queryable.Include(r => r.CreatedByUser).Include(r =>r.Status);
+            if (!string.IsNullOrWhiteSpace(userCreated))
+            {
+                var inner = PredicateBuilder.False<Samples>();
+                inner = inner.Or(i => i.CreatedByUser.FirstName.ToLower().Contains(userCreated.ToLower()));
+                inner = inner.Or(i => i.CreatedByUser.LastName.ToLower().Contains(userCreated.ToLower()));
+                predicate.And(inner);
+            }
+
+            return _sampleContext.Samples.Include(r => r.CreatedByUser).Include(r => r.Status).AsExpandable().Where(predicate);
         }
 
         public void Dispose()
@@ -44,14 +50,14 @@ namespace Repository.Sample
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!isDisposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
                     _sampleContext.Dispose();
                 }
 
-                isDisposed = true;
+                _isDisposed = true;
             }
         }
     }

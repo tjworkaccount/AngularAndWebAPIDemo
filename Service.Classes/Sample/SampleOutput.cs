@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using Data.Classes;
 
 namespace Service.Classes.Sample
@@ -13,15 +14,18 @@ namespace Service.Classes.Sample
         public int StatusId { get; set; }
         public string Status { get; set; }
 
-        public static explicit operator SampleOutput(Samples samples) => new SampleOutput
+        public static explicit operator SampleOutput(Samples samples)
         {
-            Id = samples.SampleId,
-            Barcode = samples.Barcode,
-            CreatedAt = samples.CreatedAt,
-            CreatedById = samples.CreatedBy,
-            CreatedBy = samples.CreatedByUser.ToString(),
-            StatusId = samples.StatusId,
-            Status = samples.Status.ToString()
-        };
+            return new SampleOutput
+            {
+                Id = samples.SampleId,
+                Barcode = samples.Barcode,
+                CreatedAt = samples.CreatedAt,
+                CreatedById = samples.CreatedBy,
+                CreatedBy = samples.CreatedByUser.ToString(),
+                StatusId = samples.StatusId,
+                Status = samples.Status.ToString()
+            };
+        }
     }
 }

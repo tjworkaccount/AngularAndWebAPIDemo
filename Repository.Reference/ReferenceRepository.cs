@@ -8,7 +8,7 @@ namespace Repository.Reference
     public class ReferenceRepository:IReferenceRepository, IDisposable
     {
         private readonly ReferenceContext _context;
-        private bool isDisposed = false;
+        private bool _isDisposed = false;
 
         public ReferenceRepository()
         {
@@ -32,14 +32,14 @@ namespace Repository.Reference
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!isDisposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
 
-                isDisposed = true;
+                _isDisposed = true;
             }
         }
     }

@@ -10,6 +10,6 @@ namespace Repository.Sample
 {
     public interface ISampleRepository
     {
-        IQueryable<Samples> GetSamples(params Expression<Func<Samples, object>>[] includeProperties);
+        IQueryable<Samples> GetSamples(string userCreated = null, int? statusId = null);
     }
 }
