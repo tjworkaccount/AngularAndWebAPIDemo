@@ -194,6 +194,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -266,6 +267,10 @@
     <ProjectReference Include="..\Data.Classes\Data.Classes.csproj">
       <Project>{6dc88028-f6ca-4c1a-9080-2f0b70d871e4}</Project>
       <Name>Data.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service.Classes\Service.Classes.csproj">
+      <Project>{64914d1e-0ea0-4b97-a95a-9685f7a50b20}</Project>
+      <Name>Service.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{3a0d7002-f3a3-4948-8af2-8b1a5e112691}</Project>

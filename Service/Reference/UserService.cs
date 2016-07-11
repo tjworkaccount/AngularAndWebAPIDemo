@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data.Classes.Reference;
 using Repository.Reference;
 
 namespace Service.Reference
 {
     public class UserService
     {
-        private readonly IReferenceRepository referenceRepository;
+        private readonly IReferenceRepository _referenceRepository;
 
         public UserService()
         {
-            referenceRepository = new ReferenceRepository();
+            _referenceRepository = new ReferenceRepository();
         }
         
         public KeyValuePair<int, string>[] GetUsersList()
         {
             var list = new List<KeyValuePair<int, string>>();
 
-            foreach (var userReference in referenceRepository.GetUsers().ToList().OrderBy(l=>l.LastName))
+            foreach (var userReference in _referenceRepository.GetUsers().ToList().OrderBy(l=>l.LastName))
             {
-                list.Add(new KeyValuePair<int, string>(userReference.UserId, (userReference.LastName + ", " + userReference.FirstName)));
+                list.Add(new KeyValuePair<int, string>(userReference.UserId, userReference.ToString()));
             }
 
             return list.ToArray();

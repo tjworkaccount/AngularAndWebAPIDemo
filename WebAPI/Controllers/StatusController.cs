@@ -6,17 +6,17 @@ namespace WebAPI.Controllers
 {
     public class StatusController : ApiController
     {
-        private readonly StatusService statusService;
+        private readonly StatusService _statusService;
 
         public StatusController()
         {
-            statusService = new StatusService();
+            _statusService = new StatusService();
         }
 
         [HttpGet]
         public KeyValuePair<int, string>[] Get()
         {
-            return statusService.GetStatusList();
+            return _statusService.GetStatusList();
         }
     }
 }

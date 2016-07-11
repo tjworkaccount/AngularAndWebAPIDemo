@@ -6,17 +6,17 @@ namespace WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        private readonly UserService userService;
+        private readonly UserService _userService;
 
         public UserController()
         {
-            userService = new UserService();
+            _userService = new UserService();
         }
 
         [HttpGet]
         public KeyValuePair<int, string>[] Get()
         {
-            return userService.GetUsersList();
+            return _userService.GetUsersList();
         }
     }
 }

@@ -47,18 +47,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DataContext.cs" />
-    <Compile Include="Mappings\SampleConfiguration.cs" />
-    <Compile Include="Mappings\StatusConfiguration.cs" />
-    <Compile Include="Mappings\UserConfiguration.cs" />
-    <Compile Include="Migrations\201607060712412_Initial Create.cs" />
-    <Compile Include="Migrations\201607060712412_Initial Create.Designer.cs">
-      <DependentUpon>201607060712412_Initial Create.cs</DependentUpon>
+    <Compile Include="Migrations\201607111952083_Initial Create.cs" />
+    <Compile Include="Migrations\201607111952083_Initial Create.Designer.cs">
+      <DependentUpon>201607111952083_Initial Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,8 +61,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Migrations\201607060712412_Initial Create.resx">
-      <DependentUpon>201607060712412_Initial Create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607111952083_Initial Create.resx">
+      <DependentUpon>201607111952083_Initial Create.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Samples.csv" />
     <EmbeddedResource Include="Resources\Statuses.csv" />
