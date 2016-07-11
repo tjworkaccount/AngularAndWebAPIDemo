@@ -18,17 +18,9 @@ namespace Service.Sample
             _sampleRepository = new SampleRepository();
         }
 
-        public SampleOutput[] GetSamples(string userCreated = null, int? statusId = null)
+        public SampleOutput[] GetSamples(string userCreated = null, int? statusId = null, string barcode = null)
         {
-            try
-            {
-                var temp = _sampleRepository.GetSamples(userCreated, statusId).ToArray();
-                return Array.ConvertAll(temp, item => (SampleOutput)item);
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
+            return Array.ConvertAll(_sampleRepository.GetSamples(userCreated, statusId, barcode).ToArray(), item => (SampleOutput)item);
         }
     }
 }

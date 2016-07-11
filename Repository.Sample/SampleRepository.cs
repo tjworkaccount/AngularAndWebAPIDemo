@@ -22,7 +22,7 @@ namespace Repository.Sample
             Dispose(false);
         }
 
-        public IQueryable<Samples> GetSamples(string userCreated = null, int? statusId = null)
+        public IQueryable<Samples> GetSamples(string userCreated, int? statusId, string barcode)
         {
             var predicate = PredicateBuilder.True<Samples>();
 
@@ -37,6 +37,11 @@ namespace Repository.Sample
                 inner = inner.Or(i => i.CreatedByUser.FirstName.ToLower().Contains(userCreated.ToLower()));
                 inner = inner.Or(i => i.CreatedByUser.LastName.ToLower().Contains(userCreated.ToLower()));
                 predicate.And(inner);
+            }
+
+            if (!string.IsNullOrWhiteSpace(barcode))
+            {
+                predicate.And(i => i.Barcode.ToLower().Contains(barcode.ToLower()));
             }
 
             return _sampleContext.Samples.Include(r => r.CreatedByUser).Include(r => r.Status).AsExpandable().Where(predicate);

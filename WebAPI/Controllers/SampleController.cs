@@ -19,9 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public SampleOutput[] Get(string userCreated = null, int? statusId = null)
+        public SampleOutput[] Get(string userCreatedContains = null, int? statusId = null, string barcodeContains = null)
         {
-            return _sampleService.GetSamples(userCreated, statusId);
+            return _sampleService.GetSamples(userCreatedContains, statusId, barcodeContains);
         }
     }
 }
