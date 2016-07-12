@@ -22,7 +22,7 @@ namespace Repository.Sample
             Dispose(false);
         }
 
-        public IQueryable<Samples> GetSamples(string userCreated, int? statusId, string barcode)
+        public IQueryable<Samples> GetSamples(int pageNumber, int pageSize, string userCreated, int? statusId, string barcode)
         {
             var predicate = PredicateBuilder.True<Samples>();
 
@@ -34,17 +34,29 @@ namespace Repository.Sample
             if (!string.IsNullOrWhiteSpace(userCreated))
             {
                 var inner = PredicateBuilder.False<Samples>();
+                
+                if (userCreated.Contains(" ") || userCreated.Contains(", "))
+                {
+                    foreach (var s in userCreated.Split(new [] { ' ', ','}))
+                    {
+                        inner = inner.Or(i => i.CreatedByUser.FirstName.ToLower().Contains(s.ToLower()));
+                        inner = inner.Or(i => i.CreatedByUser.LastName.ToLower().Contains(s.ToLower()));
+                    }
+                }
+
                 inner = inner.Or(i => i.CreatedByUser.FirstName.ToLower().Contains(userCreated.ToLower()));
                 inner = inner.Or(i => i.CreatedByUser.LastName.ToLower().Contains(userCreated.ToLower()));
-                predicate.And(inner);
+
+                predicate = predicate.And(inner);
             }
 
             if (!string.IsNullOrWhiteSpace(barcode))
             {
-                predicate.And(i => i.Barcode.ToLower().Contains(barcode.ToLower()));
+                predicate = predicate.And(i => i.Barcode.Contains(barcode));
             }
 
-            return _sampleContext.Samples.Include(r => r.CreatedByUser).Include(r => r.Status).AsExpandable().Where(predicate);
+            return _sampleContext.Samples.Include(r => r.CreatedByUser).Include(r => r.Status).AsExpandable()
+                    .Where(predicate).ToArray().Skip((pageNumber-1)*pageSize).Take(pageSize).AsQueryable();
         }
 
         public void InsertSample(int userId, int statusId, string barcode)
