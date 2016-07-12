@@ -11,5 +11,6 @@ namespace Repository.Sample
     public interface ISampleRepository
     {
         IQueryable<Samples> GetSamples(string userCreated, int? statusId, string barcode);
+        void InsertSample(int userId, int statusId, string barcode);
     }
 }

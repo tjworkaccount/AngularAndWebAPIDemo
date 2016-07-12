@@ -13,6 +13,10 @@ namespace WebAPI.Controllers
             _statusService = new StatusService();
         }
 
+        /// <summary>
+        /// Get All Statuses
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public KeyValuePair<int, string>[] Get()
         {

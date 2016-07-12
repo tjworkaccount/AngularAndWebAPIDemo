@@ -13,6 +13,10 @@ namespace WebAPI.Controllers
             _userService = new UserService();
         }
 
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public KeyValuePair<int, string>[] Get()
         {

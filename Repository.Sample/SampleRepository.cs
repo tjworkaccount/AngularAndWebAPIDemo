@@ -47,6 +47,31 @@ namespace Repository.Sample
             return _sampleContext.Samples.Include(r => r.CreatedByUser).Include(r => r.Status).AsExpandable().Where(predicate);
         }
 
+        public void InsertSample(int userId, int statusId, string barcode)
+        {
+
+            if (!string.IsNullOrWhiteSpace(barcode) && _sampleContext.Users.Any(i => i.UserId == userId) &&
+                _sampleContext.Statuses.Any(i => i.StatusId == statusId) && !_sampleContext.Samples.Any(i => string.Equals(i.Barcode.ToLower(), barcode.ToLower())))
+            {
+                var newSample = new Samples
+                {
+                    StatusId = statusId,
+                    CreatedBy = userId,
+                    CreatedAt = DateTime.Now,
+                    Barcode = barcode,
+                    SampleId = default(int)
+                };
+                _sampleContext.Samples.Add(newSample);
+                _sampleContext.Entry(newSample).State = EntityState.Added;
+                Save();
+            }
+        }
+
+        public void Save()
+        {
+            _sampleContext.SaveChanges();
+        }
+
         public void Dispose()
         {
             Dispose(true);

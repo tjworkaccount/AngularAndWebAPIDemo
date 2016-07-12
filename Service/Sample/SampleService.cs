@@ -22,5 +22,11 @@ namespace Service.Sample
         {
             return Array.ConvertAll(_sampleRepository.GetSamples(userCreated, statusId, barcode).ToArray(), item => (SampleOutput)item);
         }
+
+        public void CreateSample(int userId, int statusId, string barcode)
+        {
+            _sampleRepository.InsertSample(userId, statusId, barcode);
+        }
+
     }
 }
