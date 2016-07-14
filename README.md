@@ -17,3 +17,6 @@ Write an ASP.NET Web API that responds with JSON to the following actions. You m
 3. Build a MVC site using the interaction service.
 4. Recreate the MVC site using Microsoft ASP.NET SPA (with AngularJS and testing)
 5. Create Unit Tests using MOQ for the data layers.
+
+##**Progress**
+Parts 1-3 are done and checked in the repository.
