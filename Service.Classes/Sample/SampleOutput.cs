@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 using Data.Classes;
 
 namespace Service.Classes.Sample

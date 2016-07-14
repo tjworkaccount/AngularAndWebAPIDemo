@@ -23,9 +23,19 @@ namespace Service.Sample
             return Array.ConvertAll(_sampleRepository.GetSamples(pageNumber, pageSize, userCreated, statusId, barcode).ToArray(), item => (SampleOutput)item);
         }
 
-        public void CreateSample(int userId, int statusId, string barcode)
+        public int GetTotalCount(string userCreated, int? statusId, string barcode)
         {
-            _sampleRepository.InsertSample(userId, statusId, barcode);
+            return _sampleRepository.GetTotalCount(userCreated, statusId, barcode);
+        }
+
+        public bool IsValid(int pageNumber, int pageSize, string userCreated, int? statusId, string barcode)
+        {
+            return _sampleRepository.IsValid(pageNumber, pageSize, userCreated, statusId, barcode);
+        }
+
+        public bool CreateSample(int userId, int statusId, string barcode)
+        {
+            return _sampleRepository.InsertSample(userId, statusId, barcode);
         }
 
     }

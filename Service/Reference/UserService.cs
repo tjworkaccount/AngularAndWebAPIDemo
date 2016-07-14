@@ -17,7 +17,7 @@ namespace Service.Reference
         {
             var list = new List<KeyValuePair<int, string>>();
 
-            foreach (var userReference in _referenceRepository.GetUsers().ToList().OrderBy(l=>l.LastName))
+            foreach (var userReference in _referenceRepository.GetUsers().ToArray().OrderBy(l=>l.LastName))
             {
                 list.Add(new KeyValuePair<int, string>(userReference.UserId, userReference.ToString()));
             }
